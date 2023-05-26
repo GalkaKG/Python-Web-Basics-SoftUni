@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from My_Plant_App.web.models import ProfileModel, PlantModel
+
+
+@admin.register(ProfileModel)
+class Profile(admin.ModelAdmin):
+    ...
+
+
+@admin.register(PlantModel)
+class Plant(admin.ModelAdmin):
+    ...
