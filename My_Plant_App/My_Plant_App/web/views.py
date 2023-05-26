@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from My_Plant_App.web.forms import ProfileCreateForm, CreatePlantForm
+from My_Plant_App.web.forms import ProfileCreateForm, CreatePlantForm, EditPlantForm, DeletePlantForm
 from My_Plant_App.web.models import ProfileModel, PlantModel
 
 
@@ -84,12 +84,53 @@ def plant_create(request):
 
 
 def plant_details(request, pk):
-    return render(request, 'plant/plant-details.html')
+    profile = get_profile()
+    plant = get_plant(pk)
+
+    context = {
+        'profile': profile,
+        'plant': plant
+    }
+    return render(request, 'plant/plant-details.html', context)
 
 
 def plant_edit(request, pk):
-    return render(request, 'plant/edit-plant.html')
+    profile = get_profile()
+    plant = get_plant(pk)
+
+    if request.method == 'GET':
+        form = EditPlantForm(instance=plant)
+    else:
+        form = EditPlantForm(request.POST, instance=plant)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'profile': profile,
+        'plant': plant,
+        'form': form
+    }
+
+    return render(request, 'plant/edit-plant.html', context)
 
 
 def plant_delete(request, pk):
-    return render(request, 'plant/delete-plant.html')
+    profile = get_profile()
+    plant = get_plant(pk)
+
+    if request.method == 'GET':
+        form = DeletePlantForm(instance=plant)
+    else:
+        form = DeletePlantForm(request.POST, instance=plant)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'profile': profile,
+        'plant': plant,
+        'form': form
+    }
+
+    return render(request, 'plant/delete-plant.html', context)
