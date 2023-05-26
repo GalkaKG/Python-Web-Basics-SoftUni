@@ -2,7 +2,7 @@
 
 {% block content %}
     <section id="register-page" class="content auth">
-        <form id="register" method="post" action="create-profile.html">
+        <form id="register" method="post" action="{% url 'profile create' %}">
             <div class="container">
                 <h1>Create Profile</h1>
 

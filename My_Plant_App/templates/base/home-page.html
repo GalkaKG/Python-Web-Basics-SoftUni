@@ -1,6 +1,5 @@
 {% load static %}
 
-{% block header %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,12 +19,11 @@
                 <a href="{% url 'profile create' %}">Create Profile</a>
             {% else %}
                 <a href="{% url 'catalogue' %}">Catalogue</a>
-                <a href="{% url 'profile create' %}">Create Plant</a>
+                <a href="{% url 'plant create' %}">Create Plant</a>
                 <a href="{% url 'home' %}">Profile</a>
             {% endif %}
         </nav>
     </header>
-{% endblock %}
 
 {% block content %}
     <section id="index-headline">
@@ -37,11 +35,9 @@
     </section>
 {% endblock %}
 
-{% block footer %}
     <footer>
         &copy;SoftUni Team 2022. All rights reserved.
     </footer>
-{% endblock %}
 
 </div>
 </body>

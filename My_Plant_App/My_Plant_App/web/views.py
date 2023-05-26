@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from My_Plant_App.web.forms import ProfileCreateForm
-from My_Plant_App.web.models import ProfileModel
+from My_Plant_App.web.forms import ProfileCreateForm, CreatePlantForm
+from My_Plant_App.web.models import ProfileModel, PlantModel
 
 
 def get_profile():
@@ -9,6 +9,13 @@ def get_profile():
         return ProfileModel.objects.get()
     except ProfileModel.DoesNotExist:
         return None
+
+def get_plants():
+    return PlantModel.objects.all()
+
+
+def get_plant(pk):
+    return PlantModel.objects.filter(pk=pk).get()
 
 
 def index(request):
@@ -21,7 +28,15 @@ def index(request):
 
 
 def catalogue(request):
-    return render(request, 'base/catalogue.html')
+    profile = get_profile()
+    plants = get_plants()
+
+    context = {
+        'profile': profile,
+        'plants': plants
+    }
+
+    return render(request, 'base/catalogue.html', context)
 
 
 def profile_create(request):
@@ -53,7 +68,19 @@ def profile_delete(request):
 
 
 def plant_create(request):
-    return render(request, 'plant/create-plant.html')
+    if request.method == 'GET':
+        form = CreatePlantForm()
+    else:
+        form = CreatePlantForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'plant/create-plant.html', context)
 
 
 def plant_details(request, pk):

@@ -7,5 +7,5 @@ def validate_first_letter_is_upper(value):
 
 
 def validate_name_contains_only_letters(value):
-    if not value.isaplha():
+    if not value.isalpha():
         raise ValidationError('Plant name should contain only letters!')
