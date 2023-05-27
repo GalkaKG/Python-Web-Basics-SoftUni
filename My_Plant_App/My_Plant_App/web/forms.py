@@ -9,6 +9,24 @@ class ProfileCreateForm(forms.ModelForm):
         exclude = ('profile_picture',)
 
 
+class ProfileEditForm(ProfileCreateForm):
+    class Meta:
+        model = ProfileModel
+        fields = '__all__'
+
+
+class ProfileDeleteForm(ProfileCreateForm):
+    class Meta:
+        model = ProfileModel
+        fields = '__all__'
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+
+        return self.instance
+
+
 class CreatePlantForm(forms.ModelForm):
     class Meta:
         model = PlantModel

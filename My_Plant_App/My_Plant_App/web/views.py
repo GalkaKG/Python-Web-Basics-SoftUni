@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
-from My_Plant_App.web.forms import ProfileCreateForm, CreatePlantForm, EditPlantForm, DeletePlantForm
+from My_Plant_App.web.forms import ProfileCreateForm, ProfileEditForm, ProfileDeleteForm,\
+    CreatePlantForm, EditPlantForm, DeletePlantForm
 from My_Plant_App.web.models import ProfileModel, PlantModel
 
 
@@ -9,6 +10,7 @@ def get_profile():
         return ProfileModel.objects.get()
     except ProfileModel.DoesNotExist:
         return None
+
 
 def get_plants():
     return PlantModel.objects.all()
@@ -56,15 +58,53 @@ def profile_create(request):
 
 
 def profile_details(request):
-    return render(request, 'profile/profile-details.html')
+    profile = get_profile()
+    plants = get_plants()
+
+    context = {
+        'profile': profile,
+        'plants': plants,
+        'stars': len(plants)
+    }
+    return render(request, 'profile/profile-details.html', context)
 
 
 def profile_edit(request):
-    return render(request, 'profile/edit-profile.html')
+    profile = get_profile()
+
+    if request.method == 'GET':
+        form = ProfileEditForm(instance=profile)
+    else:
+        form = ProfileEditForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+        return redirect('profile details')
+
+    context = {
+        'profile': profile,
+        'form': form
+    }
+    return render(request, 'profile/edit-profile.html', context)
 
 
 def profile_delete(request):
-    return render(request, 'profile/delete-profile.html')
+    profile = get_profile()
+    plants = get_plants()
+
+    if request.method == 'POST':
+        form = ProfileDeleteForm(request.POST, instance=profile)
+        form.save()
+        for plant in plants:
+            plant_form = DeletePlantForm(request.POST, instance=plant)
+            plant_form.save()
+
+        return redirect('home')
+
+    context = {
+        'profile': profile,
+    }
+
+    return render(request, 'profile/delete-profile.html', context)
 
 
 def plant_create(request):
