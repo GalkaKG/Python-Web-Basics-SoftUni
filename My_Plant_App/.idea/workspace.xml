@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c23fe8eb-a8bc-4e78-8654-b41673b876a4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/base/home-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/home-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/My_Plant_App.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/My_Plant_App.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/My_Plant_App/web/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/My_Plant_App/web/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile/profile-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/profile-details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +61,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="My_Plant_App.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -90,6 +94,7 @@
       <workItem from="1685088083382" duration="8487000" />
       <workItem from="1685103530446" duration="11317000" />
       <workItem from="1685116348202" duration="7919000" />
+      <workItem from="1685186518397" duration="1930000" />
     </task>
     <servers />
   </component>

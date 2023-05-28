@@ -13,15 +13,14 @@
                 {% endif %}
                 <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
                 <p class="description">Username: {{ profile.username }}</p>
-                <p class="description">Total stars: {{ stars }}</p>
+                <p class="description">Total stars:</p>
                 {% if plants%}
                     {% for plant in plants %}
-                        <img class="star-img" src="{{ plant.image_url }}" alt='profile-image'/>
+                        <img class="star-img" src="{% static 'images/star3.png' %}" alt='profile-image'/>
                     {% endfor %}
                 {% else %}
                     <p class="description">Total stars: 0</p>
                 {% endif %}
-
                 <div class="buttons">
                     <a href="{% url 'profile edit' %}" class="edit-button">Edit</a>
                     <a href="{% url 'profile delete' %}" class="delete-button">Delete</a>
