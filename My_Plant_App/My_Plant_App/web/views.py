@@ -63,7 +63,7 @@ def profile_details(request):
 
     context = {
         'profile': profile,
-        'plants': plants,
+        'plants': plants
     }
     return render(request, 'profile/profile-details.html', context)
 
