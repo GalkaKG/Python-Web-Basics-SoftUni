@@ -14,12 +14,16 @@
                 <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
                 <p class="description">Username: {{ profile.username }}</p>
                 <p class="description">Total stars:</p>
-                {% if plants%}
+                {% if not plants %}
+                    <p class="description">Total stars: 0</p>
+                {% elif plants|length < 3 %}
                     {% for plant in plants %}
                         <img class="star-img" src="{% static 'images/star3.png' %}" alt='profile-image'/>
                     {% endfor %}
                 {% else %}
-                    <p class="description">Total stars: 0</p>
+                    <img class="star-img" src="{% static 'images/star3.png' %}" alt='profile-image'/>
+                    <img class="star-img" src="{% static 'images/star3.png' %}" alt='profile-image'/>
+                    <img class="star-img" src="{% static 'images/star3.png' %}" alt='profile-image'/>
                 {% endif %}
                 <div class="buttons">
                     <a href="{% url 'profile edit' %}" class="edit-button">Edit</a>
