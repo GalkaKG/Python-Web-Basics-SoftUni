@@ -1,8 +1,22 @@
 from django.shortcuts import render
 
+from Games_Play_App.web.models import ProfileModel
+
+
+def get_profile():
+    try:
+        return ProfileModel.objects.get()
+    except ProfileModel.DoesNotExist:
+        return None
+
 
 def index(request):
-    return render(request, 'base/home-page.html')
+    profile = get_profile()
+
+    context = {
+        'profile': profile
+    }
+    return render(request, 'base/home-page.html', context)
 
 
 def dashboard(request):

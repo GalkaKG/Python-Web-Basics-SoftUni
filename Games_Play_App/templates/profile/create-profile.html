@@ -1,25 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
-    <title>GamesPlay</title>
-</head>
-
-<body>
-<div id="box">
-    <header>
-
-        <!-- navigation bar -->
-        <h1><a class="home" href="#">GamesPlay</a></h1>
-        <nav>
-            <a href="#">Create Profile</a>
-        </nav>
-    </header>
-
-    <!-- create profile form -->
+{% extends 'base/home-page.html' %}
+{% block content %}
     <section id="register-page" class="content auth">
         <form id="register">
             <div class="container">
@@ -39,12 +19,4 @@
             </div>
         </form>
     </section>
-
-    <!-- footer -->
-    <footer>
-        &copy;SoftUni Team 2022. All rights reserved.
-    </footer>
-
-</div>
-</body>
-</html>
+{% endblock %}
