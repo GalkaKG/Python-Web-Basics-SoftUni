@@ -1,35 +1,28 @@
 {% extends 'base/home-page.html' %}
-{% block content %}
 
-    <!-- details section -->
+{% block content %}
     <section id="game-details">
         <h1>Game Details</h1>
         <div class="info-section">
             <div class="game-header">
-                <!-- game image -->
                 <img class="game-img"
-                     src="https://image.api.playstation.com/cdn/EP0001/CUSA04040_00/LRI3Rg5MKOi5AkefFaMcChNv5WitM7sz.png"
+                     src="{{ game.image_url }}"
                      alt='game image'/>
-                <!-- title and rating -->
-                <h1>UNO <span class="levels">Rating: 4.3</span></h1>
-                <!-- game category -->
-                <p><span class="type">Category: Board/Card Game</span></p>
-                <!-- game max level (if any) -->
-                <p><span class="type">Max Level: 10</span></p>
+                <h1>{{ game.title }} <span class="levels">Rating: {{ game.rating }}</span></h1>
+                <p><span class="type">Category: {{ game.category }}</span></p>
+                {% if game.max_level %}
+                    <p><span class="type">Max Level: {{ game.max_level }}</span></p>
+                {% endif %}
             </div>
-            <!-- game summary (if any)-->
-            <p class="text">
-                Uno is an American shedding-type card game that is played with a specially printed deck. The game's
-                general principles put it into the crazy eights family of card games, and it is similar to the
-                traditional European game mau-mau.
-            </p>
-
-            <!-- Edit/Delete buttons -->
+            {% if game.summary %}
+                <p class="text">
+                    {{ game.summary }}
+                </p>
+            {% endif %}
             <div class="buttons">
-                <a href="#" class="button">Edit</a>
-                <a href="#" class="button">Delete</a>
+                <a href="{% url 'edit game' pk=game.pk %}" class="button">Edit</a>
+                <a href="{% url 'delete game' pk=game.pk %}" class="button">Delete</a>
             </div>
         </div>
     </section>
-
 {% endblock %}
