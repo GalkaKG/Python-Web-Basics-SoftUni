@@ -26,6 +26,7 @@ def index(request):
     context = {
         'profile': profile
     }
+
     return render(request, 'base/home-page.html', context)
 
 

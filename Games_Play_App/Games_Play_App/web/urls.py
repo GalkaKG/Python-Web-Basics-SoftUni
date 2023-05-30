@@ -17,21 +17,3 @@ urlpatterns = (
         path('delete/<int:pk>/', views.delete_game, name='delete game'),
     ])),
 )
-
-
-# TODO:
-'''
-•	http://localhost:8000/ - home page
-•	http://localhost:8000/dashboard/ - dashboard page
-
-•	http://localhost:8000/profile/create - create profile page
-•	http://localhost:8000/profile/details/ - details profile page
-•	http://localhost:8000/profile/edit/ - edit profile page
-•	http://localhost:8000/profile/delete/ - delete profile page
-
-•	http://localhost:8000/game/create/ - create game page
-•	http://localhost:8000/game/details/<id>/ - details game page
-•	http://localhost:8000/game/edit/<id>/ - edit game page
-•	http://localhost:8000/game/delete/<id>/ - delete game page
-
-'''

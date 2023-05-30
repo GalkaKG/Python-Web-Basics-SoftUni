@@ -83,7 +83,7 @@ class GameModel(models.Model):
         blank=False,
         validators=(
             rating_validate,
-        )
+        ),
     )
 
     max_level = models.IntegerField(
@@ -91,7 +91,7 @@ class GameModel(models.Model):
         blank=True,
         validators=(
             MinValueValidator(MIN_LEVEL),
-        )
+        ),
     )
 
     image_url = models.URLField(
