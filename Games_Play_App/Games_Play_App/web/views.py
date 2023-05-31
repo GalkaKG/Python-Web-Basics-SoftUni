@@ -64,15 +64,15 @@ def create_profile(request):
 def details_profile(request):
     profile = get_profile()
     games = get_all_games()
-    total_rating = 0
+    avg_rating = 0.0
 
-    for game in games:
-        total_rating += game.rating
+    if games:
+        avg_rating = sum([game.rating for game in games if games]) / len(games)
 
     context = {
         'profile': profile,
         'games': games,
-        'avg_rating': total_rating / len(games)
+        'avg_rating': avg_rating
     }
 
     return render(request, 'profile/details-profile.html', context)
