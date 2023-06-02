@@ -9,11 +9,11 @@ def add_book(request):
     return render(request, 'book/add-book.html')
 
 
-def edit_book(request):
+def edit_book(request, pk):
     return render(request, 'book/edit-book.html')
 
 
-def book_details(request):
+def book_details(request, pk):
     return render(request, 'book/book-details.html')
 
 
