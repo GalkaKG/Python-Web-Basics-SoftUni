@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'home/home-with-profile.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/images/library.jpg" type="image/x-icon" />
-    <link rel="stylesheet" href="/css/styles.css">
-    <title>Online Books Library</title>
-</head>
-
-<body>
-    <div id="container">
-        <header id="site-header">
-
-            <!-- Navigation -->
-            <nav class="navbar">
-                <section class="navbar-dashboard">
-                    <a href="#">Dashboard</a>
-                    <div id="user">
-                        <span>Welcome, Peter</span>
-                        <a class="button" href="#">Add Book</a>
-                        <a class="button" href="#">Profile</a>
-                    </div>
-                </section>
-            </nav>
-        </header>
-
-        <!-- Details Page -->
+   {% block content %}
         <section id="details-page" class="details">
             <div class="book-information">
                 <h3>A Court of Thorns and </h3>
@@ -55,12 +30,4 @@
                     ACOTAR has a flair for the dramatic and allowed me a fanstasy land to escape into.</p>
             </div>
         </section>
-
-        <!-- Footer -->
-        <footer id="site-footer">
-            <p>Python Web Basics Retake Exam @SoftUni</p>
-        </footer>
-    </div>
-</body>
-
-</html>
+    {% endblock %}
