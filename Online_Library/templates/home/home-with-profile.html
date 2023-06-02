@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/static/images/library.jpg" type="image/x-icon" />
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" href="/images/library.jpg" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Online Books Library</title>
 </head>
 
@@ -25,6 +27,7 @@
             </nav>
         </header>
 
+        {% block content %}
         <!-- Dashboard Page-->
         <section id="dashboard-page" class="dashboard">
             <h1>Dashboard</h1>
@@ -54,6 +57,7 @@
                 </li>
             </ul>
         </section>
+        {% endblock %}
 
         <footer id="site-footer">
             <p>Python Web Basics Retake Exam @SoftUni</p>
