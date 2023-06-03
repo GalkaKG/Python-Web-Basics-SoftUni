@@ -94,7 +94,7 @@ def edit_book(request, pk):
 def delete_book(request, pk):
     book = get_book(pk)
     book.delete()
-    
+
     return redirect('home page')
 
 
