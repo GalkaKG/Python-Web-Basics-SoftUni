@@ -13,9 +13,9 @@
         <header id="site-header">
             <nav class="navbar">
                 <section class="navbar-dashboard">
-                    <a href="#">Dashboard</a>
+                    <a href="{% url 'home page' %}">Dashboard</a>
                     <div id="user">
-                        <span>Welcome, Peter</span>
+                        <span>Welcome, {{ profile.first_name }}</span>
                         <a class="button" href="{% url 'add book' %}">Add Book</a>
                         <a class="button" href="{% url 'profile' %}">Profile</a>
                     </div>
@@ -29,16 +29,17 @@
             {% if not books %}
                 <p class="no-books">No books in database!</p>
             {% else %}
-                {% for book in books %}
-                    <ul class="my-books-list">
+                <ul class="my-books-list">
+                    {% for book in books %}
                         <li class="myBooks">
                             <h3>{{ book.title }}</h3>
                             <p>Type: {{ book.type }}</p>
                             <p class="img"><img src="{{ book.image }}" alt="{{ book.title }}"></p>
                             <a class="button" href="{% url 'details book' pk=book.pk %}">Details</a>
                         </li>
-                    </ul>
-                {% endfor %}
+                    {% endfor %}
+                </ul>
+
             {% endif %}
         </section>
         {% endblock %}

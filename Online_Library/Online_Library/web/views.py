@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from Online_Library.web.forms import AddBookForm, ProfileForm, EditProfileForm
+from Online_Library.web.forms import AddBookForm, ProfileForm, EditProfileForm, DeleteProfileForm, EditBookForm
 from Online_Library.web.models import Profile, Book
 
 
@@ -74,18 +74,47 @@ def add_book(request):
 
 
 def edit_book(request, pk):
-    return render(request, 'book/edit-book.html')
+    book = get_book(pk)
+
+    if request.method == 'GET':
+        form = EditBookForm(instance=book)
+    else:
+        form = EditBookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+        return redirect('home page')
+
+    context = {
+        'book': book,
+        'form': form
+    }
+    return render(request, 'book/edit-book.html', context)
+
+
+def delete_book(request, pk):
+    book = get_book(pk)
+    book.delete()
+    
+    return redirect('home page')
 
 
 def book_details(request, pk):
-    return render(request, 'book/book-details.html')
+    book = get_book(pk)
+
+    context = {
+        'book': book
+    }
+
+    return render(request, 'book/book-details.html', context)
 
 
-def profile(request):
+def profile_page(request):
     profile = get_profile()
+
     context = {
         'profile': profile
     }
+
     return render(request, 'profile/profile.html', context)
 
 
@@ -108,4 +137,19 @@ def edit_profile(request):
 
 
 def delete_profile(request):
-    return render(request, 'profile/delete-profile.html')
+    profile = get_profile()
+    books = get_all_books()
+
+    if request.method == 'GET':
+        form = DeleteProfileForm(instance=profile)
+    else:
+        form = DeleteProfileForm(request.POST, instance=profile)
+        form.save()
+        books.delete()
+        return redirect('home page')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'profile/delete-profile.html', context)
