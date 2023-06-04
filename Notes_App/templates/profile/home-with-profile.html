@@ -1,17 +1,17 @@
+{% load static %}
+
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
         <title>Notes</title>
     </head>
-
     <body>
-        <!--navigation bar-->
         <header>
             <nav>
                 <ul>
-                    <li class="img"><img src="/images/note.png" /></li>
+                    <li class="img"><img src="{% static '/images/note.png' %}" /></li>
                     <li><a href="/static">Notes</a></li>
                     <li class="right">
                         <a href="/add">Add Note</a>
@@ -20,10 +20,9 @@
                 </ul>
             </nav>
         </header>
-        <!--end navigation bar-->
 
+        {% block content %}
         <h1>My Notes</h1>
-
 
         <h2>There are no notes.</h2>
         <!--notes container-->
@@ -46,8 +45,7 @@
                 <a class="button delete" href="/delete/4">Delete</a>
             </div>
         </div>
-
-        <!--end notes container-->
+        {% endblock %}
 
         <footer>
             <div>Python Web Basics Exam @SoftUni</div>
