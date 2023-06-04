@@ -26,6 +26,7 @@ class DeleteNoteForm(CreateNoteForm):
     def save(self, commit=True):
         if commit:
             self.instance.delete()
+        return self.instance
 
     def __set_disabled_fields(self):
         for field in self.fields.values():
