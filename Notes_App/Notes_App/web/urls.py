@@ -3,17 +3,9 @@ from . import views
 
 urlpatterns = (
     path('', views.home, name='home page'),
+    path('profile/', views.profile, name='profile'),
+    path('add/', views.add_note, name='add note'),
+    path('edit/<int:pk>/', views.edit_note, name='edit note'),
+    path('delete/<int:pk>/', views.delete_note, name='delete note'),
+    path('details/<int:pk>/', views.details_note, name='details note'),
 )
-
-
-#TODO: 
-
-'''
-•	http://localhost:8000/ - home page
-•	http://localhost:8000/add - add note page
-•	http://localhost:8000/edit/:id - edit note page
-•	http://localhost:8000/delete/:id - delete note page
-•	http://localhost:8000/details/:id - note details page
-•	http://localhost:8000/profile - profile page
-
-'''
