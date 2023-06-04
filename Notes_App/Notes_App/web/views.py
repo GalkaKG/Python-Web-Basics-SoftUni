@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from Notes_App.web.forms import CreateProfileForm
+from Notes_App.web.forms import CreateProfileForm, CreateNoteForm
 from Notes_App.web.models import ProfileModel, NoteModel
 
 
@@ -72,7 +72,19 @@ def profile_page(request):
 
 
 def add_note(request):
-    return render(request, 'note/note-create.html')
+    if request.method == 'GET':
+        form = CreateNoteForm()
+    else:
+        form = CreateNoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('home page')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'note/note-create.html', context)
 
 
 def edit_note(request, pk):
