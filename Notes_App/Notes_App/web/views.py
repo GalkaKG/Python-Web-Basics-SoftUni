@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from Notes_App.web.forms import CreateProfileForm, CreateNoteForm
+from Notes_App.web.forms import CreateProfileForm, CreateNoteForm, EditNoteForm, DeleteNoteForm
 from Notes_App.web.models import ProfileModel, NoteModel
 
 
@@ -71,6 +71,17 @@ def profile_page(request):
     return render(request, 'profile/profile.html', context)
 
 
+def profile_delete(request):
+    profile = get_profile()
+    notes = get_all_notes()
+
+    profile.delete()
+    for note in notes:
+        note.delete()
+
+    return redirect('home page')
+
+
 def add_note(request):
     if request.method == 'GET':
         form = CreateNoteForm()
@@ -88,12 +99,48 @@ def add_note(request):
 
 
 def edit_note(request, pk):
-    return render(request, 'note/note-edit.html')
+    note = get_note(pk)
+
+    if request.method == 'GET':
+        form = EditNoteForm(instance=note)
+    else:
+        form = EditNoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+        return redirect('home page')
+
+    context = {
+        'note': note,
+        'form': form
+    }
+
+    return render(request, 'note/note-edit.html', context)
 
 
 def delete_note(request, pk):
-    return render(request, 'note/note-delete.html')
+    note = get_note(pk)
+
+    if request.method == 'GET':
+        form = DeleteNoteForm(instance=note)
+    else:
+        form = DeleteNoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+        return redirect('home page')
+
+    context = {
+        'note': note,
+        'form': form
+    }
+
+    return render(request, 'note/note-delete.html', context)
 
 
 def details_note(request, pk):
-    return render(request, 'note/note-details.html')
+    note = get_note(pk)
+
+    context = {
+        'note': note
+    }
+
+    return render(request, 'note/note-details.html', context)
