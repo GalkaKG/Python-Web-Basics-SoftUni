@@ -11,6 +11,9 @@ class BaseProfileForm(forms.ModelForm):
                 attrs={'type': 'password'}
             )
         }
+        # widgets = {
+        #     'password': forms.PasswordInput
+        # }
 
 
 class CreateProfileForm(BaseProfileForm):
