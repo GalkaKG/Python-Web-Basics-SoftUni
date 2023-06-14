@@ -1,29 +1,26 @@
 {% extends 'base/index.html' %}
+{% load static %}
 
 {% block content %}
-    <!-- profile details section -->
     <section id="car-details">
         <h1>Profile Details</h1>
         <div class="info-section">
             <div class="car-header">
-                <!-- default profile image (if the user does NOT have any)-->
-                    <img class="car-img" src="/images/default-profile.png" alt='profile-image'/>
-                <!-- if the user has a profile image -->
-                    <img class="car-img" src="" alt='profile-image'/>
-                <!-- user full name (if any) -->
-                <h1>Svetoslava Stoyanova</h1>
-                <!-- user username -->
-                <p class="description">Username: svetoslava</p>
-                <!-- user email -->
-                <p class="description">Email: svetoslava@gmail.com</p>
-                <!-- user age -->
-                <p class="description">Age: 30</p>
-                <!-- total price of all cars -->
-                <p class="description">Total price: 285.000</p>
-                <!-- Edit/Delete buttons -->
+               {% if not profile.image_url %}
+                    <img class="car-img" src="{% static '/images/default-profile.png' %}" alt='profile-image'/>
+               {% else %}
+                    <img class="car-img" src="{{ profile.image_url }}" alt='profile-image'/>
+                {% endif %}
+                {% if profile.first_name or profile.last_name %}
+                    <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+                {% endif %}
+                <p class="description">Username: {{ profile.username }}</p>
+                <p class="description">Email: {{ profile.email }}</p>
+                <p class="description">Age: {{ profile.age }}</p>
+                <p class="description">Total price: {{ all_cars_sum|floatformat:3 }}</p>
                 <div class="buttons">
-                    <a href="#" class="edit-button">Edit</a>
-                    <a href="#" class="delete-button">Delete</a>
+                    <a href="{% url 'profile edit' %}" class="edit-button">Edit</a>
+                    <a href="{% url 'profile delete' %}" class="delete-button">Delete</a>
                 </div>
             </div>
         </div>

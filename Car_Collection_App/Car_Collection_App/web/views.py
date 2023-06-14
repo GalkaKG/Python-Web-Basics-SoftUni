@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-
-from Car_Collection_App.web.forms import CreateProfileForm, CreateCarForm
+from Car_Collection_App.web.forms import CreateProfileForm, CreateCarForm, EditCarForm, DeleteCarForm, EditProfileForm
 from Car_Collection_App.web.models import Profile, Car
 
 
@@ -56,14 +55,44 @@ def profile_create(request):
 
 
 def profile_details(request):
-    return render(request, 'profile/profile-details.html')
+    profile = get_profile()
+    cars = get_all_cars()
+
+    total_price_all_cars = sum([car.price for car in cars])
+
+    context = {
+        'profile': profile,
+        'all_cars_sum': total_price_all_cars
+    }
+
+    return render(request, 'profile/profile-details.html', context)
 
 
 def profile_edit(request):
-    return render(request, 'profile/profile-edit.html')
+    profile = get_profile()
+
+    if request.method == 'GET':
+        form = EditProfileForm(instance=profile)
+    else:
+        form = EditProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'profile': profile,
+        'form': form
+    }
+
+    return render(request, 'profile/profile-edit.html', context)
 
 
 def profile_delete(request):
+    if request.method == 'POST':
+        get_all_cars().delete()
+        get_profile().delete()
+        return redirect('home')
+
     return render(request, 'profile/profile-delete.html')
 
 
@@ -94,8 +123,38 @@ def car_details(request, pk):
 
 
 def car_edit(request, pk):
-    return render(request, 'car/car-edit.html')
+    car = get_car(pk)
+
+    if request.method == 'GET':
+        form = EditCarForm(instance=car)
+    else:
+        form = EditCarForm(request.POST, instance=car)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'car': car,
+        'form': form
+    }
+
+    return render(request, 'car/car-edit.html', context)
 
 
-def car_delete(request):
-    return render(request, 'car/car-delete.html')
+def car_delete(request, pk):
+    car = get_car(pk)
+
+    if request.method == 'GET':
+        form = DeleteCarForm(instance=car)
+    else:
+        form = DeleteCarForm(request.POST, instance=car)
+        if form.is_valid():
+            form.save()
+        return redirect('catalogue')
+
+    context = {
+        'car': car,
+        'form': form
+    }
+
+    return render(request, 'car/car-delete.html', context)
