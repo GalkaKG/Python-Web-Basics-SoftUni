@@ -11,7 +11,9 @@ class Profile(models.Model):
         null=False,
         blank=False,
         max_length=10,
-        validators=(custom_validators.validate_min_characters_username,),
+        validators=(
+            custom_validators.validate_min_characters_username,
+        ),
     )
 
     email = models.EmailField(
@@ -22,7 +24,9 @@ class Profile(models.Model):
     age = models.IntegerField(
         null=False,
         blank=False,
-        validators=(validators.MinValueValidator(18),),
+        validators=(
+            validators.MinValueValidator(18),
+        ),
     )
 
     password = models.CharField(
@@ -74,13 +78,17 @@ class Car(models.Model):
         null=False,
         blank=False,
         max_length=MODEL_MAX_LEN,
-        validators=(validators.MinLengthValidator(MODEL_MIN_LEN),),
+        validators=(
+            validators.MinLengthValidator(MODEL_MIN_LEN),
+        ),
     )
 
     year = models.IntegerField(
         null=False,
         blank=False,
-        validators=(custom_validators.validate_year,),
+        validators=(
+            custom_validators.validate_year,
+        ),
     )
 
     image_url = models.URLField(
@@ -91,5 +99,7 @@ class Car(models.Model):
     price = models.FloatField(
         null=False,
         blank=False,
-        validators=(validators.MinValueValidator(MIN_PRICE),),
+        validators=(
+            validators.MinValueValidator(MIN_PRICE),
+        ),
     )

@@ -1,12 +1,23 @@
 from django.shortcuts import render
 
+from Car_Collection_App.web.models import Profile
+
 
 def get_profile():
-    return Profile
+    try:
+        return Profile.objects.get()
+    except Profile.DoesNotExist:
+        return None
+
 
 def index(request):
     profile = get_profile()
-    return render(request, 'base/index.html')
+
+    context = {
+        'profile': profile
+    }
+
+    return render(request, 'base/index.html', context)
 
 
 def catalogue(request):

@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,13 +13,13 @@
     <header>
         <h1><a class="index-navigation" href="#"><span>C</span>ARS <span>C</span>OLLECTION</a></h1>
         <nav>
-            <!-- if the user has not created a profile -->
+           {% if not profile %}
                 <a href="{% url 'profile create' %}">Create Profile</a>
-
-                <!-- if the user has created a profile -->
+           {% else %}
                 <a href="{% url 'catalogue' %}">Catalogue</a>
                 <a href="{% url 'car create' %}">Create Car</a>
                 <a href="{% url 'home' %}">Profile</a>
+           {% endif %}
         </nav>
     </header>
 
@@ -36,7 +35,6 @@
     <footer>
         &copy;SoftUni Team 2022. All rights reserved.
     </footer>
-
 </div>
 </body>
 </html>
