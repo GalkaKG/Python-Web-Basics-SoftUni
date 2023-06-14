@@ -29,9 +29,11 @@ def index(request):
 
 
 def catalogue(request):
+    profile = get_profile()
     cars = get_all_cars()
 
     context = {
+        'profile': profile,
         'cars': cars
     }
 
@@ -97,6 +99,8 @@ def profile_delete(request):
 
 
 def car_create(request):
+    profile = get_profile()
+
     if request.method == 'GET':
         form = CreateCarForm()
     else:
@@ -106,6 +110,7 @@ def car_create(request):
             return redirect('catalogue')
 
     context = {
+        'profile': profile,
         'form': form
     }
 
@@ -113,9 +118,11 @@ def car_create(request):
 
 
 def car_details(request, pk):
+    profile = get_profile()
     car = get_car(pk)
 
     context = {
+        'profile': profile,
         'car': car
     }
 
@@ -123,6 +130,7 @@ def car_details(request, pk):
 
 
 def car_edit(request, pk):
+    profile = get_profile()
     car = get_car(pk)
 
     if request.method == 'GET':
@@ -134,6 +142,7 @@ def car_edit(request, pk):
             return redirect('catalogue')
 
     context = {
+        'profile': profile,
         'car': car,
         'form': form
     }
@@ -142,6 +151,7 @@ def car_edit(request, pk):
 
 
 def car_delete(request, pk):
+    profile = get_profile()
     car = get_car(pk)
 
     if request.method == 'GET':
@@ -153,6 +163,7 @@ def car_delete(request, pk):
         return redirect('catalogue')
 
     context = {
+        'profile': profile,
         'car': car,
         'form': form
     }
