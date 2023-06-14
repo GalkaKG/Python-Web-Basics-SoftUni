@@ -4,13 +4,14 @@ from . import custom_validators
 
 
 class Profile(models.Model):
+    MAX_LEN_USERNAME = 10
     MAX_CHAR = 30
     MIN_AGE = 18
 
     username = models.CharField(
         null=False,
         blank=False,
-        max_length=10,
+        max_length=MAX_LEN_USERNAME,
         validators=(
             custom_validators.validate_min_characters_username,
         ),
@@ -25,7 +26,7 @@ class Profile(models.Model):
         null=False,
         blank=False,
         validators=(
-            validators.MinValueValidator(18),
+            validators.MinValueValidator(MIN_AGE),
         ),
     )
 

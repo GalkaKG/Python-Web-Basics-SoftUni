@@ -11,7 +11,7 @@
 <body>
 <div id="box">
     <header>
-        <h1><a class="index-navigation" href="#"><span>C</span>ARS <span>C</span>OLLECTION</a></h1>
+        <h1><a class="index-navigation" href="{% url 'home' %}"><span>C</span>ARS <span>C</span>OLLECTION</a></h1>
         <nav>
            {% if not profile %}
                 <a href="{% url 'profile create' %}">Create Profile</a>
