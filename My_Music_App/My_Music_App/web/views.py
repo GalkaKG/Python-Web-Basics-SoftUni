@@ -61,7 +61,7 @@ def delete_profile(request):
     profile = get_profile()
     albums = get_all_albums()
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         albums.delete()
         profile.delete()
         return redirect('home page')
