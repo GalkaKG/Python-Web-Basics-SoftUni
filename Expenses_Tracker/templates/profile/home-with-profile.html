@@ -9,7 +9,7 @@
 <body>
 <nav>
     <ul>
-        <li class="img"><img src="{% static '/images/dollar.png' %}" alt="dollar"></li>
+        <li class="img"><img src="{% static 'images/dollar.png' %}" alt="dollar"></li>
         <li><a href="{% url 'home page' %}">Expenses Tracker</a></li>
         <li class="right"><a href="{% url 'profile page' %}">Profile</a></li>
     </ul>
@@ -17,7 +17,10 @@
 
 {% block content %}
 <div class="body">
-    {% if expenses %}
+    {% if not expenses %}
+        <h1>My Expenses</h1>
+        <a class="button add" href="{% url 'create expense' %}">Add Expense</a>
+    {% else %}
         <div>
             <h1>Summary</h1>
             <ul class="expenses-list">
@@ -25,20 +28,19 @@
                 {% for expense in expenses %}
                     <li class="red"> - {{ expense.price|floatformat:2 }}$</li>
                 {% endfor %}
-                <li class="green">={{ money_left|floatformat:2 }}$ left</li>
+                <li class="green">= {{ money_left|floatformat:2 }}$ left</li>
             </ul>
         </div>
-    {% endif %}
-    {% if not expenses %}
         <h1>My Expenses</h1>
         <a class="button add" href="{% url 'create expense' %}">Add Expense</a>
-    {% else %}
         <div class="expenses-container">
         {% for expense in expenses %}
             <div class="expense-container">
             <h2>{{ expense.title }}</h2>
             <img src="{{ expense.expense_image }}" alt="description">
-            <p>{{ expense.description }}</p>
+            {% if expense.description %}
+                <p>{{ expense.description }}</p>
+            {% endif %}
             <div class="expense-detail">
                 <div>
                     <p>Price: {{ expense.price|floatformat:2 }}$</p>

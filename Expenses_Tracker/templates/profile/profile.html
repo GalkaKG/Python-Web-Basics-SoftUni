@@ -1,28 +1,24 @@
 {% extends 'profile/home-with-profile.html' %}
+{% load static %}
 
 {% block content %}
 <div class="body">
-    <!-- Your Profile Data -->
     <h1>Your Profile</h1>
     <div class="expenses-container">
         <div class="expense-container">
-            <!-- Full Name -->
-            <h2>Aleksandra Raykova</h2>
-            <!-- Profile Image -->
-            <img src="/images/user.png" alt="profile pic">
-            <!-- Profile Description -->
-            <!-- Total Items Bought -->
-            <p>Total Items Bought: 2</p>
-            <!-- Budget Left -->
-            <p>Budget Left: 100.00$</p>
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="profile pic">
+            {% else %}
+                <img src="{% static 'images/user.png' %}" alt="profile pic">
+            {% endif %}
+            <p>Total Items Bought: {{ count_expenses }}</p>
+            <p>Budget Left: {{ money_left|floatformat:2 }}$</p>
             <div class="right">
-                <!-- Edit Profile Button -->
-                <a class="button edit" href="#">Edit Profile</a>
-                <!-- Delete Profile Button -->
-                <a class="button delete" href="#">Delete Profile</a>
+                <a class="button edit" href="{% url 'edit profile' %}">Edit Profile</a>
+                <a class="button delete" href="{% url 'delete profile' %}">Delete Profile</a>
             </div>
         </div>
     </div>
-    <!-- End Your Profile Data -->
 </div>
 {% endblock %}

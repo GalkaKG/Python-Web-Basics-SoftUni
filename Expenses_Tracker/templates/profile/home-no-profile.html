@@ -9,14 +9,14 @@
 <body>
 <nav>
     <ul>
-        <li class="img"><img src="{% static '/images/dollar.png' %}" alt="dollar"></li>
+        <li class="img"><img src="{% static 'images/dollar.png' %}" alt="dollar"></li>
         <li><a href="{% url 'home page' %}">Expenses Tracker</a></li>
     </ul>
 </nav>
 <div class="body">
     <h1>Enter your data</h1>
     <div class="form">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {{ form }}
             {% csrf_token %}
             <input type="submit" value="Submit">
