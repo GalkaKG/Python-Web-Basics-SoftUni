@@ -1,18 +1,45 @@
-from django.shortcuts import render
-from Expenses_Tracker.web.models import Profile
+from django.shortcuts import render, redirect
+
+from Expenses_Tracker.web.forms import ProfileCreateForm
+from Expenses_Tracker.web.models import Profile, Expense
 
 
 def get_profile():
     return Profile.objects.first()
 
 
+def get_all_expenses():
+    return Expense.objects.all()
+
+
 def home(request):
     profile = get_profile()
 
     if not profile:
-        return render(request, 'profile/home-no-profile.html')
+        if request.method == 'GET':
+            form = ProfileCreateForm()
+        else:
+            form = ProfileCreateForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('home page')
+
+        context = {
+            'profile': profile,
+            'form': form
+        }
+
+        return render(request, 'profile/home-no-profile.html', context)
     else:
-        return render(request, 'profile/home-with-profile.html')
+        expenses = get_all_expenses()
+        money_left = profile.budget - sum(expenses)
+
+        context = {
+            'expenses': expenses,
+            'money_left': money_left
+        }
+
+        return render(request, 'profile/home-with-profile.html', context)
 
 
 def profile_page(request):

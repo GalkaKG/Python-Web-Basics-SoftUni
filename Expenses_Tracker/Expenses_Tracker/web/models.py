@@ -9,12 +9,15 @@ def validate_name(value):
 
 
 def validate_image_size(value):
-    max_size = value * 1024 * 1024
-    if value > max_size:
-        raise ValidationError('Max file size is 5.00 MB')
+    if value:
+        max_size = value.file.size * 1024 * 1024
+        if value > max_size:
+            raise ValidationError('Max file size is 5.00 MB')
 
 
 class Profile(models.Model):
+    IMAGE_UPLOAD_TO_DIR = 'profiles/'
+
     first_name = models.CharField(
         max_length=15,
         validators=(
@@ -39,6 +42,7 @@ class Profile(models.Model):
     )
 
     profile_image = models.ImageField(
+        upload_to=IMAGE_UPLOAD_TO_DIR,
         blank=True,
         null=True,
         default='/static/images/user.png',
